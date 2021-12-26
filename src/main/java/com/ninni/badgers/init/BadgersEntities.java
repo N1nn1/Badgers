@@ -20,7 +20,7 @@ public class BadgersEntities {
         "badger",
         FabricEntityTypeBuilder.createMob()
                                .entityFactory(BadgerEntity::new)
-                               .defaultAttributes(BadgerEntity::createMobAttributes)
+                               .defaultAttributes(BadgerEntity::createBadgerAttributes)
                                .spawnGroup(SpawnGroup.CREATURE)
                                .spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE_WG, BadgerEntity::canSpawn)
                                .dimensions(EntityDimensions.changing(0.8F, 0.6F))
@@ -29,7 +29,7 @@ public class BadgersEntities {
     );
 
     static {
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MEADOW), SpawnGroup.WATER_AMBIENT, BadgersEntities.BADGER, 25, 1, 1);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MEADOW), SpawnGroup.CREATURE, BadgersEntities.BADGER, 15, 1, 4);
     }
 
     @SuppressWarnings("unchecked")

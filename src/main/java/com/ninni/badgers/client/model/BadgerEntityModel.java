@@ -24,12 +24,12 @@ public class BadgerEntityModel extends AnimalModel<BadgerEntity> {
     private final ModelPart left_leg;
 
     public BadgerEntityModel(ModelPart root) {
-        super(RenderLayer::getEntityTranslucent, true, 16.0F, 0.0F, 2.0F, 2.0F, 24.0F);
+        super(RenderLayer::getEntityTranslucent, true, 10.0F, 1.5F, 2.0F, 2.0F, 24.0F);
         this.root = root;
 
         this.body       = root.getChild("body");
+        this.head       = root.getChild("head");
 
-        this.head       = body.getChild("head");
         this.left_leg       = body.getChild("left_leg");
         this.right_leg       = body.getChild("right_leg");
         this.left_arm       = body.getChild("left_arm");
@@ -55,7 +55,7 @@ public class BadgerEntityModel extends AnimalModel<BadgerEntity> {
             ModelTransform.of(0.0F, 18.5F, 1.0F, 0.0F, 0.0F, 0.0F)
         );
 
-        ModelPartData head = body.addChild(
+        ModelPartData head = root.addChild(
             "head",
             ModelPartBuilder.create()
                             .uv(0, 16)
@@ -64,7 +64,7 @@ public class BadgerEntityModel extends AnimalModel<BadgerEntity> {
                             .uv(16, 16)
                             .mirrored(false)
                             .cuboid(-2.0F, -2.0F, -6.0F, 4.0F, 2.0F, 3.0F, new Dilation(0.0F)),
-            ModelTransform.of(0.0F, 0.0F, -4.5F, 0.0F, 0.0F, 0.0F)
+            ModelTransform.of(0.0F, 18.5F, -3.5F, 0.0F, 0.0F, 0.0F)
         );
 
         ModelPartData left_ear = head.addChild(
@@ -153,46 +153,55 @@ public class BadgerEntityModel extends AnimalModel<BadgerEntity> {
 
     @Override
     public void setAngles(BadgerEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        float speed = 1.5f;
-        float degree = 1.0f;
-        //adjust speed and degree
-        this.left_arm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
-        this.right_arm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
-        this.left_leg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
-        this.right_leg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
-        this.left_arm.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * -0.1F * limbDistance + 2.5F;
-        this.right_arm.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * 0.1F * limbDistance + 2.5F;
-        this.left_leg.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * 0.1F * limbDistance + 2.5F;
-        this.right_leg.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * -0.1F * limbDistance + 2.5F;
-        this.tail.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 1.6F * limbDistance;
-        this.body.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
-        this.body.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
-        this.head.yaw = MathHelper.cos(2.0F + limbAngle * speed * 0.1F) * degree * 0.4F * limbDistance;
-        this.left_arm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-        this.right_leg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-        this.left_leg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-        this.right_arm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-        
-        //when sleeping play this
-        //float speed = 1.0f;
-        //float degree = 1.0f;
-        //this.body.roll = MathHelper.cos(limbAngle * speed * 0.025F) * degree * 0.01F * limbDistance - 1.57F;
-        //this.body.pivotY = 0.17F;
-        //this.body.pitch = MathHelper.cos(limbDistance * speed * 0.05F) * degree * 0.1F * limbDistance - 0.4F;
-        //this.head.roll = MathHelper.cos(1.0F + limbDistance * speed * 0.025F) * degree * 0.3F * limbDistance + 0.6F;
-        //this.head.pitch = 0.2F;
-        //this.left_arm.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance + 0.8F;
-        //this.right_arm.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance + 1.0F;
-        //this.left_leg.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.8F;
-        //this.right_leg.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.9F;
-        //this.left_leg.yaw = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance + 0.4F;
-        //this.left_arm.yaw = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.8F;
-        //this.tail.roll = MathHelper.cos(limbAngle * speed * 0.05F) * degree * 0.4F * limbDistance + 0.8F;
+        //if (entity.isSleeping()) {
+            //float speed = 1.0f;
+            //float degree = 1.0f;
+            //this.body.roll = MathHelper.cos(limbAngle * speed * 0.025F) * degree * 0.01F * limbDistance - 1.57F;
+            //this.body.pivotY = 0.17F + 20.5F;
+            //this.body.pitch = MathHelper.cos(limbDistance * speed * 0.05F) * degree * 0.1F * limbDistance - 0.4F;
+            //this.head.roll = MathHelper.cos(1.0F + limbDistance * speed * 0.025F) * degree * 0.3F * limbDistance + 0.6F;
+            //this.head.pitch = 0.2F;
+            //this.left_arm.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance + 0.8F;
+            //this.right_arm.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance + 1.0F;
+            //this.left_leg.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.8F;
+            //this.right_leg.pitch = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.9F;
+            //this.left_leg.yaw = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance + 0.4F;
+            //this.left_arm.yaw = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.8F;
+            //this.tail.roll = MathHelper.cos(limbAngle * speed * 0.05F) * degree * 0.4F * limbDistance + 0.8F;
+        //} else {
+            float speed = 6f;
+            float degree = 3f;
+            this.body.pivotY = 18.5F;
+            this.body.pitch = 0F;
+            this.left_arm.yaw = 0F;
+            this.head.roll = 0F;
+            this.head.pitch = 0F;
+            this.left_leg.yaw = 0F;
+            this.tail.roll = 0F;
+
+            this.left_arm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
+            this.right_arm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
+            this.left_leg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
+            this.right_leg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
+            this.left_arm.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * -0.5F * limbDistance + 2.5F;
+            this.right_arm.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * 0.5F * limbDistance + 2.5F;
+            this.left_leg.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * 0.5F * limbDistance + 2.5F;
+            this.right_leg.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * -0.5F * limbDistance + 2.5F;
+            this.tail.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 1.6F * limbDistance;
+            this.body.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
+            this.body.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
+            this.head.yaw = MathHelper.cos(2.0F + limbAngle * speed * 0.1F) * degree * 0.4F * limbDistance;
+            this.left_arm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
+            this.right_leg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
+            this.left_leg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
+            this.right_arm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
+        //}
+
     }
 
     @Override
     protected Iterable<ModelPart> getHeadParts() {
-        return ImmutableList.of();
+        return ImmutableList.of(this.head);
     }
 
     @Override

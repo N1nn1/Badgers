@@ -6,10 +6,13 @@ import com.ninni.badgers.client.model.BadgerEntityModel;
 import com.ninni.badgers.client.render.BadgerEntityRenderer;
 import com.ninni.badgers.init.BadgersEntities;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 
+@Environment(EnvType.CLIENT)
 public class BadgersClient implements ClientModInitializer {
 
 	@Override

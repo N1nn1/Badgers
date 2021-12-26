@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class BadgerEntityRenderer<T extends LivingEntity> extends MobEntityRenderer<BadgerEntity, BadgerEntityModel> {
     public static final Identifier TEXTURE = new Identifier(Badgers.MOD_ID, "textures/entity/badger/badger.png");
+    public static final Identifier SLEEPING_TEXTURE = new Identifier(Badgers.MOD_ID, "textures/entity/badger/badger_sleeping.png");
 
     public BadgerEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new BadgerEntityModel(ctx.getPart(BadgersEntityModelLayers.BADGER)), 0.5F);
@@ -24,7 +25,6 @@ public class BadgerEntityRenderer<T extends LivingEntity> extends MobEntityRende
 
     @Override
     public Identifier getTexture(BadgerEntity entity) {
-        return TEXTURE;
-
+        return entity.isSleeping() ? SLEEPING_TEXTURE : TEXTURE;
     }
 }
