@@ -19,7 +19,7 @@
     "sounds": [
       "badgers:entity/badger/hurt"
     ],
-    "subtitle": "subtitles.entity.sofishticated.badger.hurt"
+    "subtitle": "subtitles.entity.badgers.badger.hurt"
   },
   "entity.badger.death": {
     "sounds": [
