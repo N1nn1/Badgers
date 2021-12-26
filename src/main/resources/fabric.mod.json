@@ -4,12 +4,11 @@
   "version": "${version}",
 
   "name": "Badgers",
-  "description": "Twigs is a minecraft mod all about building, it will add new and interesting building materials as well as new renditions of current minecraft blocks.",
+  "description": "",
   "authors": [
     "Ninni"
   ],
   "contact": {
-    "homepage": "",
     "sources": "https://github.com/N1nn1/Badgers"
   },
 
@@ -28,8 +27,8 @@
     "badgers.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.12.5",
+    "fabricloader": ">=0.12.12",
     "fabric": "*",
-    "minecraft": "1.18.x"
+    "minecraft": ">=1.18"
   }
 }
