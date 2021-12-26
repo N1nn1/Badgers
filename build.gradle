@@ -1,4 +1,4 @@
-//file:noinspection GroovyAssignabilityCheck
+//file:noinspection all
 
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
@@ -23,6 +23,10 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/${project.mod_id}.accesswidener")
 }
 
 processResources {
