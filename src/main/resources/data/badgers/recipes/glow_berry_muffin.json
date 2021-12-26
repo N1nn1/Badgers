@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#S#",
+        "WWW"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:glow_berries"
+        },
+        "S": {
+            "item": "minecraft:sugar"
+        },
+        "W": {
+            "item": "minecraft:wheat"
+        }
+    },
+    "result": {
+        "item": "badgers:glow_berry_muffin",
+        "count": 2
+    }
+}

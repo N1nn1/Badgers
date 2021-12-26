@@ -3,5 +3,10 @@
 
   "entity.badgers.badger": "Badger",
 
+  "block.badgers.sour_berry_bush": "Sour Berries",
+
+  "item.badgers.sour_berry_muffin": "Sour Berry Muffin",
+  "item.badgers.sweet_berry_muffin": "Sweet Berry Muffin",
+  "item.badgers.glow_berry_muffin": "Glow Berry Muffin",
   "item.badgers.badger_spawn_egg": "Badger Spawn Egg"
 }

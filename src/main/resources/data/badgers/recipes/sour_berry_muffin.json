@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#S#",
+        "WWW"
+    ],
+    "key": {
+        "#": {
+            "item": "badgers:sour_berries"
+        },
+        "S": {
+            "item": "minecraft:sugar"
+        },
+        "W": {
+            "item": "minecraft:wheat"
+        }
+    },
+    "result": {
+        "item": "badgers:sour_berry_muffin",
+        "count": 2
+    }
+}
