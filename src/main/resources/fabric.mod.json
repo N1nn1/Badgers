@@ -13,7 +13,7 @@
     "sources": "https://github.com/N1nn1/Badgers"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/badgers/icon.png",
   "environment": "*",
   "entrypoints": {
