@@ -5,6 +5,11 @@
 
   "block.badgers.sour_berry_bush": "Sour Berries",
 
+  "subtitles.entity.badgers.badger.ambient": "Badger Sniffs",
+  "subtitles.entity.badgers.badger.bite": "Badger Bites",
+  "subtitles.entity.badgers.badger.hurt": "Badger Hurts",
+  "subtitles.entity.badgers.badger.death": "Badger Dies",
+
   "item.badgers.sour_berry_muffin": "Sour Berry Muffin",
   "item.badgers.sweet_berry_muffin": "Sweet Berry Muffin",
   "item.badgers.glow_berry_muffin": "Glow Berry Muffin",

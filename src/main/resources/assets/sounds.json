@@ -1,0 +1,30 @@
+{
+  "entity.badger.ambient": {
+    "sounds": [
+      "badgers:entity/badger/ambient",
+      "badgers:entity/badger/ambient2",
+      "badgers:entity/badger/ambient3",
+      "badgers:entity/badger/ambient4"
+    ],
+    "subtitle": "subtitles.entity.badgers.badger.ambient"
+  },
+  "entity.badger.bite": {
+    "sounds": [
+      "badgers:entity/badger/bite",
+      "badgers:entity/badger/bite2"
+    ],
+    "subtitle": "subtitles.entity.badgers.badger.bite"
+  },
+  "entity.badger.hurt": {
+    "sounds": [
+      "badgers:entity/badger/hurt"
+    ],
+    "subtitle": "subtitles.entity.sofishticated.badger.hurt"
+  },
+  "entity.badger.death": {
+    "sounds": [
+      "badgers:entity/badger/death"
+    ],
+    "subtitle": "subtitles.entity.badgers.badger.death"
+  }
+}

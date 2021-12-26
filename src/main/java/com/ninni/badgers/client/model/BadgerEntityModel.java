@@ -175,10 +175,11 @@ public class BadgerEntityModel extends AnimalModel<BadgerEntity> {
             this.body.pitch = 0F;
             this.left_arm.yaw = 0F;
             this.head.roll = 0F;
-            this.head.pitch = 0F;
             this.left_leg.yaw = 0F;
             this.tail.roll = 0F;
 
+            this.head.pitch = headPitch * 0.017453292F;
+            this.head.yaw = headYaw * 0.017453292F;
             this.left_arm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
             this.right_arm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
             this.left_leg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
@@ -190,7 +191,7 @@ public class BadgerEntityModel extends AnimalModel<BadgerEntity> {
             this.tail.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 1.6F * limbDistance;
             this.body.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
             this.body.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
-            this.head.yaw = MathHelper.cos(2.0F + limbAngle * speed * 0.1F) * degree * 0.4F * limbDistance;
+            this.head.yaw += MathHelper.cos(2.0F + limbAngle * speed * 0.1F) * degree * 0.4F * limbDistance;
             this.left_arm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
             this.right_leg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
             this.left_leg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;

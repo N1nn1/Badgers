@@ -24,6 +24,7 @@ public class Badgers implements ModInitializer {
 		Reflection.initialize(
 			BadgersEntities.class,
 			BadgersItems.class,
+			BadgersSoundEvents.class,
 			BadgersConfiguredFeatures.class,
 			BadgersPlacedFeatures.class,
 			BadgersBlocks.class
