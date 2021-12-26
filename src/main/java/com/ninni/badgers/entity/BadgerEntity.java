@@ -1,5 +1,6 @@
 package com.ninni.badgers.entity;
 
+import com.ninni.badgers.block.BadgersBlocks;
 import com.ninni.badgers.sound.BadgersSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,7 +20,9 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.TimeHelper;
@@ -49,8 +52,10 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         this.targetSelector.add(2, new UniversalAngerGoal<>(this, true));
 
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(2, new BadgerEntity.AttackGoal(1.2, true));
+        this.goalSelector.add(1, new AnimalMateGoal(this, 0.8D));
+        this.goalSelector.add(2, new BadgerEntity.AttackGoal(3F, true));
         this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.2F));
+        this.goalSelector.add(4, new TemptGoal(this, 1.0D, Ingredient.ofItems(Items.SWEET_BERRIES, Items.APPLE, BadgersBlocks.SOUR_BERRY_BUSH.asItem(), Items.RABBIT, Items.GLOW_BERRIES, Items.SPIDER_EYE), false));
         this.goalSelector.add(5, new FollowParentGoal(this, 1.2D));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
@@ -79,7 +84,7 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         return MobEntity.createMobAttributes()
                         .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
                         .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-                        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D);
+                        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D);
     }
 
     @Override
@@ -139,7 +144,7 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
             if (squaredDistance <= d && this.isCooledDown()) {
                 this.resetCooldown();
                 this.mob.tryAttack(target);
-                BadgerEntity.this.playSound(BadgersSoundEvents.ENTITY_BADGER_BITE, 0.8F, 1F);
+                BadgerEntity.this.playSound(BadgersSoundEvents.ENTITY_BADGER_BITE, 2F, 1F);
             }
         }
     }
