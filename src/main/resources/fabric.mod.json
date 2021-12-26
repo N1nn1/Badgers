@@ -20,7 +20,7 @@
       "com.ninni.badgers.Badgers"
     ],
     "client": [
-      "com.ninni.badgers.BadgersClient"
+      "com.ninni.badgers.client.BadgersClient"
     ]
   },
   "mixins": [

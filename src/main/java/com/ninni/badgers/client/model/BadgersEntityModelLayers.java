@@ -1,4 +1,4 @@
-package com.ninni.badgers.client.init;
+package com.ninni.badgers.client.model;
 
 import com.ninni.badgers.Badgers;
 import com.ninni.badgers.mixin.client.EntityModelLayersInvoker;
@@ -12,10 +12,10 @@ public class BadgersEntityModelLayers {
     public static final EntityModelLayer BADGER = registerMain("badger");
 
     private static EntityModelLayer registerMain(String id) {
-        return EntityModelLayersInvoker.register(new Identifier(Badgers.MOD_ID, id).toString(), "main");
+        return register(id, "main");
     }
 
     private static EntityModelLayer register(String id, String layer) {
-        return EntityModelLayersInvoker.register(new Identifier(Badgers.MOD_ID, id).toString(), layer);
+        return EntityModelLayersInvoker.invoke_register(new Identifier(Badgers.MOD_ID, id).toString(), layer);
     }
 }

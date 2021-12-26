@@ -1,7 +1,6 @@
 package com.ninni.badgers.block;
 
-import com.ninni.badgers.init.BadgersEntities;
-import com.ninni.badgers.init.BadgersItems;
+import com.ninni.badgers.entity.BadgersEntities;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -30,11 +29,9 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
-    private static final float field_31260 = 0.003F;
-    public static final int MAX_AGE = 3;
-    public static final IntProperty AGE;
-    private static final VoxelShape SMALL_SHAPE;
-    private static final VoxelShape LARGE_SHAPE;
+    public static final IntProperty AGE = Properties.AGE_3;
+    private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
+    private static final VoxelShape LARGE_SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
     public SourBerryBushBlock(Settings settings) {
         super(settings);
@@ -43,7 +40,7 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
 
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return new ItemStack(BadgersItems.SOUR_BERRIES);
+        return new ItemStack(BadgersBlocks.SOUR_BERRY_BUSH);
     }
 
     @Override
@@ -88,7 +85,7 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
             return ActionResult.PASS;
         } else if (i > 1) {
             int j = 1 + world.random.nextInt(2);
-            dropStack(world, pos, new ItemStack(BadgersItems.SOUR_BERRIES, j + (bl ? 1 : 0)));
+            dropStack(world, pos, new ItemStack(BadgersBlocks.SOUR_BERRY_BUSH, j + (bl ? 1 : 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
             world.setBlockState(pos, state.with(AGE, 1), 2);
             return ActionResult.success(world.isClient);
@@ -117,11 +114,4 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
         int i = Math.min(3, state.get(AGE) + 1);
         world.setBlockState(pos, state.with(AGE, i), 2);
     }
-
-    static {
-        AGE = Properties.AGE_3;
-        SMALL_SHAPE = Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
-        LARGE_SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
-    }
 }
-

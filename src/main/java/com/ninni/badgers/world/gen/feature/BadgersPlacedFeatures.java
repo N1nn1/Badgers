@@ -1,8 +1,15 @@
-package com.ninni.badgers.init;
+package com.ninni.badgers.world.gen.feature;
 
 import com.google.common.collect.ImmutableList;
+import com.ninni.badgers.Badgers;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.block.Block;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.PlacedFeature;
@@ -14,9 +21,12 @@ import java.util.List;
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER;
 
 public class BadgersPlacedFeatures {
-    public static final PlacedFeature PATCH_BERRIES;
+    public static final PlacedFeature PATCH_BERRIES = register("patch_berries", BadgersConfiguredFeatures.PATCH_BERRIES.withPlacement(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
 
-    public BadgersPlacedFeatures() {
+    static {
+        BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_BERRIES).ifPresent(key -> {
+            BiomeModifications.addFeature(ctx -> ctx.getBiomeKey() == BiomeKeys.MEADOW, GenerationStep.Feature.VEGETAL_DECORATION, key);
+        });
     }
 
     public static List<PlacementModifier> modifiers(int count) {
@@ -25,17 +35,13 @@ public class BadgersPlacedFeatures {
 
     private static List<PlacementModifier> modifiersWithChance(int chance, @Nullable PlacementModifier modifier) {
         ImmutableList.Builder<PlacementModifier> builder = ImmutableList.builder();
-        if (modifier != null) {
-            builder.add(modifier);
-        }
-
-        if (chance != 0) {
-            builder.add(RarityFilterPlacementModifier.of(chance));
-        }
+        if (modifier != null) builder.add(modifier);
+        if (chance != 0) builder.add(RarityFilterPlacementModifier.of(chance));
 
         builder.add(SquarePlacementModifier.of());
         builder.add(PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP);
         builder.add(BiomePlacementModifier.of());
+
         return builder.build();
     }
 
@@ -51,9 +57,7 @@ public class BadgersPlacedFeatures {
         return modifiersBuilder(modifier).add(BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(block.getDefaultState(), BlockPos.ORIGIN))).build();
     }
 
-    static {
-        PATCH_BERRIES = PlacedFeatures.register("patch_berries", BadgersConfiguredFeatures.PATCH_BERRIES.withPlacement(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
+    public static PlacedFeature register(String id, PlacedFeature feature) {
+        return Registry.register(BuiltinRegistries.PLACED_FEATURE, new Identifier(Badgers.MOD_ID, id), feature);
     }
 }
-
-

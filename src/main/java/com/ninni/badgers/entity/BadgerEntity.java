@@ -1,7 +1,6 @@
 package com.ninni.badgers.entity;
 
-import com.ninni.badgers.init.BadgersEntities;
-import com.ninni.badgers.init.BadgersSoundEvents;
+import com.ninni.badgers.sound.BadgersSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -11,32 +10,43 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
+import java.util.UUID;
 
-public class BadgerEntity extends AnimalEntity {
+public class BadgerEntity extends AnimalEntity implements Angerable {
+    private static final TrackedData<Integer> ANGER_TIME = DataTracker.registerData(BadgerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final UniformIntProvider ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
+    @Nullable private UUID targetUuid;
 
     public BadgerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
-        stepHeight = 1;
+        this.stepHeight = 1;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected void initGoals() {
         this.targetSelector.add(0, new ActiveTargetGoal<>(this, RabbitEntity.class, false));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new UniversalAngerGoal(this, true));
+        this.targetSelector.add(2, new UniversalAngerGoal<>(this, true));
 
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(2, new BadgerEntity.AttackGoal(1.2, true));
@@ -47,13 +57,34 @@ public class BadgerEntity extends AnimalEntity {
         this.goalSelector.add(8, new LookAroundGoal(this));
     }
 
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(ANGER_TIME, 0);
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        this.writeAngerToNbt(nbt);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.readAngerFromNbt(this.world, nbt);
+    }
+
     public static DefaultAttributeContainer.Builder createBadgerAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D);
+        return MobEntity.createMobAttributes()
+                        .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
+                        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
+                        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-            return BadgersSoundEvents.ENTITY_BADGER_AMBIENT;
+        return BadgersSoundEvents.ENTITY_BADGER_AMBIENT;
     }
 
     @Override
@@ -71,6 +102,32 @@ public class BadgerEntity extends AnimalEntity {
         return BadgersEntities.BADGER.create(world);
     }
 
+    @Override
+    public int getAngerTime() {
+        return this.dataTracker.get(ANGER_TIME);
+    }
+
+    @Override
+    public void setAngerTime(int ticks) {
+        this.dataTracker.set(ANGER_TIME, ticks);
+    }
+
+    @Nullable
+    @Override
+    public UUID getAngryAt() {
+        return this.targetUuid;
+    }
+
+    @Override
+    public void setAngryAt(@Nullable UUID uuid) {
+        this.targetUuid = uuid;
+    }
+
+    @Override
+    public void chooseRandomAngerTime() {
+        this.setAngerTime(ANGER_TIME_RANGE.get(this.random));
+    }
+
     private class AttackGoal extends MeleeAttackGoal {
         public AttackGoal(double speed, boolean pauseWhenIdle) {
             super(BadgerEntity.this, speed, pauseWhenIdle);
@@ -84,15 +141,12 @@ public class BadgerEntity extends AnimalEntity {
                 this.mob.tryAttack(target);
                 BadgerEntity.this.playSound(BadgersSoundEvents.ENTITY_BADGER_BITE, 0.8F, 1F);
             }
-
         }
     }
 
-    @SuppressWarnings("unused")
-    public static boolean canSpawn (EntityType <BadgerEntity> entity, ServerWorldAccess
-        world, SpawnReason reason, BlockPos pos, Random random){
-        BlockState blockState = world.getBlockState(pos.down());
-        return (blockState.isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8);
+    public static boolean canSpawn(EntityType <BadgerEntity> entity, ServerWorldAccess world, SpawnReason reason, BlockPos pos, Random random){
+        BlockState state = world.getBlockState(pos.down());
+        return state.isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
     }
 
 }
