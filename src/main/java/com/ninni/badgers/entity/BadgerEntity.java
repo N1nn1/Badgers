@@ -20,6 +20,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
@@ -38,6 +39,8 @@ import java.util.UUID;
 public class BadgerEntity extends AnimalEntity implements Angerable {
     private static final TrackedData<Integer> ANGER_TIME = DataTracker.registerData(BadgerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final UniformIntProvider ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
+    private static final Ingredient BREEDING_INGREDIENT = Ingredient.ofItems(BadgersBlocks.SOUR_BERRY_BUSH.asItem());
+    private static final Ingredient LURING_INGREDIENT = Ingredient.ofItems(Items.SWEET_BERRIES, Items.RABBIT, Items.APPLE, BadgersBlocks.SOUR_BERRY_BUSH.asItem(), Items.RABBIT, Items.GLOW_BERRIES, Items.SPIDER_EYE);
     @Nullable private UUID targetUuid;
 
     public BadgerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -53,13 +56,18 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
 
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AnimalMateGoal(this, 0.8D));
-        this.goalSelector.add(2, new BadgerEntity.AttackGoal(3F, true));
+        this.goalSelector.add(2, new BadgerEntity.AttackGoal(2F, true));
         this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.2F));
-        this.goalSelector.add(4, new TemptGoal(this, 1.0D, Ingredient.ofItems(Items.SWEET_BERRIES, Items.APPLE, BadgersBlocks.SOUR_BERRY_BUSH.asItem(), Items.RABBIT, Items.GLOW_BERRIES, Items.SPIDER_EYE), false));
+        this.goalSelector.add(4, new TemptGoal(this, 1.5, LURING_INGREDIENT, false));
         this.goalSelector.add(5, new FollowParentGoal(this, 1.2D));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return BREEDING_INGREDIENT.test(stack);
     }
 
     @Override

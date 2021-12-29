@@ -175,6 +175,7 @@ public class BadgerEntityModel<T extends BadgerEntity> extends AnimalModel<T> {
 
             this.head.pitch = headPitch * 0.017453292F;
             this.head.yaw = headYaw * 0.017453292F;
+            this.head.yaw += MathHelper.cos(2.0F + limbAngle * speed * 0.05F) * degree * 0.2F * limbDistance;
             this.leftArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
             this.rightArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
             this.leftLeg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;

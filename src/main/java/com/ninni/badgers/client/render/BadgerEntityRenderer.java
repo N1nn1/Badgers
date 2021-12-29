@@ -8,6 +8,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -17,6 +18,11 @@ public class BadgerEntityRenderer<T extends BadgerEntity> extends MobEntityRende
 
     public BadgerEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new BadgerEntityModel<>(ctx.getPart(BadgersEntityModelLayers.BADGER)), 0.5F);
+    }
+
+    @Override
+    protected void scale(BadgerEntity badger, MatrixStack matrixStack, float f) {
+        matrixStack.scale(1.3F, 1.3F, 1.3F);
     }
 
     @Override

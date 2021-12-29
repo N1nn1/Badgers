@@ -69,7 +69,7 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         int i = state.get(AGE);
-        if (entity instanceof LivingEntity && entity.getType() != BadgersEntities.BADGER && entity.getType() != EntityType.BEE) {
+        if (entity instanceof LivingEntity && entity.getType() != BadgersEntities.BADGER && entity.getType() != EntityType.BEE && entity.getType()!= EntityType.RABBIT) {
             entity.slowMovement(state, new Vec3d(0.95D, 0.95D, 0.95D));
         }
         if (entity instanceof LivingEntity && entity.getType() != BadgersEntities.BADGER && entity.getType() != EntityType.BEE && i > 1) {
