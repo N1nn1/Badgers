@@ -71,7 +71,7 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);
         if (state.get(AGE) > 1) {
-            world.addParticle(ParticleTypes.WITCH, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (random.nextFloat() / 2.0F), 2.5E-5D, (random.nextFloat() / 2.0F));
+            world.addParticle(ParticleTypes.WITCH, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (random.nextFloat() / 4.0F), 2.0E-5D, (random.nextFloat() / 4.0F));
         }
     }
 

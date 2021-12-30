@@ -148,6 +148,7 @@ public class BadgerEntityModel<T extends BadgerEntity> extends AnimalModel<T> {
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        limbDistance = MathHelper.clamp(limbDistance, -0.45F, 0.45F);
         //SLEEPING
             //float speed = 1.0f;
             //float degree = 1.0f;
@@ -164,6 +165,7 @@ public class BadgerEntityModel<T extends BadgerEntity> extends AnimalModel<T> {
             //this.left_arm.yaw = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance - 0.8F;
             //this.tail.roll = MathHelper.cos(limbAngle * speed * 0.05F) * degree * 0.4F * limbDistance + 0.8F;
         if (!entity.isAttacking()) {
+
             float speed = 6f;
             float degree = 3f;
             this.head.pitch = headPitch * 0.017453292F;
@@ -172,6 +174,8 @@ public class BadgerEntityModel<T extends BadgerEntity> extends AnimalModel<T> {
             this.body.pitch = 0F;
             this.head.pivotY = 18.5F;
             this.tail.pitch = 0F;
+            this.leftEar.pitch = 0F;
+            this.rightEar.pitch = 0F;
 
             this.head.yaw += MathHelper.cos(2.0F + limbAngle * speed * 0.05F) * degree * 0.2F * limbDistance;
             this.leftArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
