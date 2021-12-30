@@ -14,6 +14,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -40,7 +41,7 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
     private static final TrackedData<Integer> ANGER_TIME = DataTracker.registerData(BadgerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final UniformIntProvider ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
     private static final Ingredient BREEDING_INGREDIENT = Ingredient.ofItems(BadgersBlocks.SOUR_BERRY_BUSH.asItem());
-    private static final Ingredient LURING_INGREDIENT = Ingredient.ofItems(Items.SWEET_BERRIES, Items.RABBIT, Items.APPLE, BadgersBlocks.SOUR_BERRY_BUSH.asItem(), Items.RABBIT, Items.GLOW_BERRIES, Items.SPIDER_EYE);
+    private static final Ingredient LURING_INGREDIENT = Ingredient.ofItems(Items.SWEET_BERRIES, Items.APPLE, BadgersBlocks.SOUR_BERRY_BUSH.asItem(), Items.RABBIT, Items.GLOW_BERRIES, Items.SPIDER_EYE, Items.MILK_BUCKET);
     @Nullable private UUID targetUuid;
 
     public BadgerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -63,6 +64,16 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
+    }
+
+    @Override
+    public boolean isAffectedBySplashPotions() {
+        return false;
+    }
+
+    @Override
+    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
+        return false;
     }
 
     @Override
@@ -157,6 +168,7 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         }
     }
 
+    @SuppressWarnings("unused")
     public static boolean canSpawn(EntityType <BadgerEntity> entity, ServerWorldAccess world, SpawnReason reason, BlockPos pos, Random random){
         BlockState state = world.getBlockState(pos.down());
         return state.isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;

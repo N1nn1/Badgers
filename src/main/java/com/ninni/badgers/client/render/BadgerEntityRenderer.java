@@ -22,7 +22,7 @@ public class BadgerEntityRenderer<T extends BadgerEntity> extends MobEntityRende
 
     @Override
     protected void scale(BadgerEntity badger, MatrixStack matrixStack, float f) {
-        matrixStack.scale(1.3F, 1.3F, 1.3F);
+        matrixStack.scale(1.25F, 1.25F, 1.25F);
     }
 
     @Override

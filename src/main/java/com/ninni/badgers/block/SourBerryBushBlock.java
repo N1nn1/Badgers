@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -67,13 +68,21 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        super.randomDisplayTick(state, world, pos, random);
+        if (state.get(AGE) > 1) {
+            world.addParticle(ParticleTypes.WITCH, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (random.nextFloat() / 2.0F), 2.5E-5D, (random.nextFloat() / 2.0F));
+        }
+    }
+
+    @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         int i = state.get(AGE);
         if (entity instanceof LivingEntity && entity.getType() != BadgersEntities.BADGER && entity.getType() != EntityType.BEE && entity.getType()!= EntityType.RABBIT) {
             entity.slowMovement(state, new Vec3d(0.95D, 0.95D, 0.95D));
         }
         if (entity instanceof LivingEntity && entity.getType() != BadgersEntities.BADGER && entity.getType() != EntityType.BEE && i > 1) {
-            ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, (100) - (20 / 2), 0, true, true));
+            ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, (100) - (20 / 2), 0, false, true));
         }
     }
 

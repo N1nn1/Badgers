@@ -23,7 +23,7 @@ public class BadgersEntities {
                                .defaultAttributes(BadgerEntity::createBadgerAttributes)
                                .spawnGroup(SpawnGroup.CREATURE)
                                .spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE_WG, BadgerEntity::canSpawn)
-                               .dimensions(EntityDimensions.fixed(0.8F, 0.6F))
+                               .dimensions(EntityDimensions.changing(0.8F, 0.6F))
                                .trackRangeBlocks(8),
         colors(0x48423c, 0xeae7de)
     );
