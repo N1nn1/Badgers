@@ -4,6 +4,7 @@
   "package": "com.ninni.badgers.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "FoxEntityMixin",
     "RabbitEntityMixin"
   ],
   "client": [

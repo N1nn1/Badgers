@@ -1,6 +1,7 @@
 package com.ninni.badgers.entity;
 
 import com.ninni.badgers.block.BadgersBlocks;
+import com.ninni.badgers.entity.ai.goal.PlayWithBabyFoxGoal;
 import com.ninni.badgers.sound.BadgersSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -55,6 +56,7 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new UniversalAngerGoal<>(this, true));
 
+        this.goalSelector.add(0, new PlayWithBabyFoxGoal(this, 1.5F));
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AnimalMateGoal(this, 0.8D));
         this.goalSelector.add(2, new BadgerEntity.AttackGoal(2F, true));
