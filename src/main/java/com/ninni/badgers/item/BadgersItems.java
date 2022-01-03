@@ -2,6 +2,7 @@ package com.ninni.badgers.item;
 
 import com.ninni.badgers.Badgers;
 import com.ninni.badgers.block.BadgersBlocks;
+import com.ninni.badgers.sound.BadgersSoundEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -9,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 public class BadgersItems {
@@ -23,6 +25,9 @@ public class BadgersItems {
     public static final Item GLOW_BERRY_MUFFIN = register("glow_berry_muffin", new FoodComponent.Builder()
         .statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1), 0.75f)
         .hunger(4).saturationModifier(0.3F).snack()
+    );
+    public static final Item MUSIC_DISC_MELLOW_MEADOWS = register("music_disc_mellow_meadows", new PublicMusicDiscItem(
+        15, BadgersSoundEvents.MUSIC_MELLOW_MEADOWS, new Item.Settings().maxCount(1).group(Badgers.ITEM_GROUP).rarity(Rarity.RARE))
     );
 
     public static final Item LOGO = register("logo", new Item(new FabricItemSettings()));

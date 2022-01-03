@@ -14,6 +14,8 @@ public class BadgersSoundEvents {
         return entity("badger", id);
     }
 
+    public static final SoundEvent MUSIC_MELLOW_MEADOWS = register("music.mellow_meadows");
+
     private static SoundEvent entity(String entity, String id) {
         return register("entity.%s.%s".formatted(entity, id));
     }

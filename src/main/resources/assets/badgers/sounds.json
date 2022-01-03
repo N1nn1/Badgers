@@ -26,5 +26,10 @@
       "badgers:entity/badger/death"
     ],
     "subtitle": "subtitles.entity.badgers.badger.death"
+  },
+  "music.mellow_meadows": {
+    "sounds": [
+      "badgers:music/mellow_meadows"
+    ]
   }
 }

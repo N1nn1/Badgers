@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "badgers:item/music_disc_mellow_meadows"
+  }
+}
