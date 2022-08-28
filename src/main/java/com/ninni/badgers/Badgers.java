@@ -5,8 +5,6 @@ import com.ninni.badgers.block.BadgersBlocks;
 import com.ninni.badgers.entity.BadgersEntities;
 import com.ninni.badgers.item.BadgersItems;
 import com.ninni.badgers.sound.BadgersSoundEvents;
-import com.ninni.badgers.world.gen.feature.BadgersConfiguredFeatures;
-import com.ninni.badgers.world.gen.feature.BadgersPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -24,8 +22,6 @@ public class Badgers implements ModInitializer {
 			BadgersEntities.class,
 			BadgersItems.class,
 			BadgersSoundEvents.class,
-			BadgersConfiguredFeatures.class,
-			BadgersPlacedFeatures.class,
 			BadgersBlocks.class
 		);
 	}

@@ -1,6 +1,7 @@
 package com.ninni.badgers.mixin;
 
 import com.ninni.badgers.entity.BadgerEntity;
+import com.ninni.badgers.entity.ai.goal.PublicRabbitFleeGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.RabbitEntity;
@@ -19,6 +20,6 @@ public abstract class RabbitEntityMixin extends AnimalEntity {
     @Inject(method = "initGoals", at = @At("TAIL"))
     private void onInitGoals(CallbackInfo ci) {
         RabbitEntity that = RabbitEntity.class.cast(this);
-        this.goalSelector.add(4, new RabbitEntity.FleeGoal<>(that, BadgerEntity.class, 10.0F, 2.2D, 2.2D));
+        this.goalSelector.add(4, new PublicRabbitFleeGoal<>(that, BadgerEntity.class, 10.0F, 2.2D, 2.2D));
     }
 }
