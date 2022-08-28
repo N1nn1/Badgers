@@ -9,11 +9,11 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
-import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
+@SuppressWarnings("unused")
 public class BadgersItems {
     public static final Item SOUR_BERRY_MUFFIN = register("sour_berry_muffin", new FoodComponent.Builder()
         .statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1), 0.75f)
@@ -31,7 +31,9 @@ public class BadgersItems {
         15, BadgersSoundEvents.MUSIC_MELLOW_MEADOWS, new Item.Settings().maxCount(1).group(Badgers.ITEM_GROUP).rarity(Rarity.RARE), 156)
     );
 
-    public static final Item LOGO = register("logo", new Item(new FabricItemSettings()));
+    public static final Item BADGERS = register("badgers", new Item(
+        new FabricItemSettings().fireproof().rarity(Rarity.EPIC).maxCount(1))
+    );
 
     static {
         CompostingChanceRegistry composting = CompostingChanceRegistry.INSTANCE;

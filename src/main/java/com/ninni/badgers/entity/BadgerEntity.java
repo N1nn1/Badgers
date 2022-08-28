@@ -46,7 +46,6 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
 
     public BadgerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
-        this.stepHeight = 1;
     }
 
     @Override

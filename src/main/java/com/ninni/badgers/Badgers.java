@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 public class Badgers implements ModInitializer {
 	public static final String MOD_ID = "badgers";
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(Badgers.MOD_ID, "item_group"), () -> new ItemStack(BadgersItems.LOGO));
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(Badgers.MOD_ID, "item_group"), () -> new ItemStack(BadgersItems.BADGERS));
 
 	@SuppressWarnings("UnstableApiUsage")
 	@Override
