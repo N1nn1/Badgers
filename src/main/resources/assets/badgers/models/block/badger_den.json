@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "badgers:block/badger_den_side",
+    "bottom": "minecraft:block/coarse_dirt",
+    "top": "badgers:block/badger_den"
+  }
+}

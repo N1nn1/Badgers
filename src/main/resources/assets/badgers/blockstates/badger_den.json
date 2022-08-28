@@ -1,0 +1,41 @@
+{
+  "variants": {
+    "facing=down": [
+      {
+        "model": "badgers:block/badger_den"
+      }
+    ],
+    "facing=up": [
+      {
+        "model": "badgers:block/badger_den",
+        "x": 180
+      }
+    ],
+    "facing=north": [
+      {
+        "model": "badgers:block/badger_den",
+        "x": -90
+      }
+    ],
+    "facing=south": [
+      {
+        "model": "badgers:block/badger_den",
+        "x": 90
+      }
+    ],
+    "facing=east": [
+      {
+        "model": "badgers:block/badger_den",
+        "x": -90,
+        "y": 90
+      }
+    ],
+    "facing=west": [
+      {
+        "model": "badgers:block/badger_den",
+        "x": 90,
+        "y": 90
+      }
+    ]
+  }
+}
