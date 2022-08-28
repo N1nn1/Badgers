@@ -13,11 +13,18 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
+@SuppressWarnings("unused")
 public class BadgersItems {
+
+    public static final Item BADGERS = register("badgers", new Item(
+        new FabricItemSettings().fireproof().rarity(Rarity.EPIC).maxCount(1))
+    );
+
     public static final Item SOUR_BERRY_MUFFIN = register("sour_berry_muffin", new FoodComponent.Builder()
         .statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1), 0.75f)
         .hunger(4).saturationModifier(0.5F).snack()
     );
+
     public static final Item SWEET_BERRY_MUFFIN = register("sweet_berry_muffin", new FoodComponent.Builder()
         .statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1), 0.75f)
         .hunger(5).saturationModifier(0.3F).snack()
@@ -27,10 +34,9 @@ public class BadgersItems {
         .hunger(4).saturationModifier(0.3F).snack()
     );
     public static final Item MUSIC_DISC_MELLOW_MEADOWS = register("music_disc_mellow_meadows", new PublicMusicDiscItem(
-        15, BadgersSoundEvents.MUSIC_MELLOW_MEADOWS, new Item.Settings().maxCount(1).group(Badgers.ITEM_GROUP).rarity(Rarity.RARE))
+        15, BadgersSoundEvents.MUSIC_MELLOW_MEADOWS, new Item.Settings().maxCount(1).group(Badgers.ITEM_GROUP).rarity(Rarity.RARE), 156)
     );
 
-    public static final Item LOGO = register("logo", new Item(new FabricItemSettings()));
 
     static {
         CompostingChanceRegistry composting = CompostingChanceRegistry.INSTANCE;

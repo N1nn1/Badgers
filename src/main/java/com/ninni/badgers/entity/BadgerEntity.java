@@ -35,7 +35,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class BadgerEntity extends AnimalEntity implements Angerable {
@@ -47,7 +46,6 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
 
     public BadgerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
-        this.stepHeight = 1;
     }
 
     @Override
@@ -59,7 +57,7 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         this.goalSelector.add(0, new PlayWithBabyFoxGoal(this, 1.5F));
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AnimalMateGoal(this, 0.8D));
-        this.goalSelector.add(2, new BadgerEntity.AttackGoal(2F, true));
+        this.goalSelector.add(2, new BadgerEntity.AttackGoal(1.75F, true));
         this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.2F));
         this.goalSelector.add(4, new TemptGoal(this, 1.5, LURING_INGREDIENT, false));
         this.goalSelector.add(5, new FollowParentGoal(this, 1.2D));
@@ -154,6 +152,12 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
         this.setAngerTime(ANGER_TIME_RANGE.get(this.random));
     }
 
+    @SuppressWarnings("unused")
+    public static boolean canSpawn(EntityType<BadgerEntity> badgerEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, net.minecraft.util.math.random.Random random) {
+        BlockState state = serverWorldAccess.getBlockState(blockPos.down());
+        return state.isOf(Blocks.GRASS_BLOCK) && serverWorldAccess.getBaseLightLevel(blockPos, 0) > 8;
+    }
+
     private class AttackGoal extends MeleeAttackGoal {
         public AttackGoal(double speed, boolean pauseWhenIdle) {
             super(BadgerEntity.this, speed, pauseWhenIdle);
@@ -169,11 +173,4 @@ public class BadgerEntity extends AnimalEntity implements Angerable {
             }
         }
     }
-
-    @SuppressWarnings("unused")
-    public static boolean canSpawn(EntityType <BadgerEntity> entity, ServerWorldAccess world, SpawnReason reason, BlockPos pos, Random random){
-        BlockState state = world.getBlockState(pos.down());
-        return state.isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
-    }
-
 }

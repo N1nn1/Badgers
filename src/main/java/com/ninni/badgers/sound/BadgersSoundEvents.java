@@ -5,6 +5,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import static com.ninni.badgers.Badgers.*;
+
 public class BadgersSoundEvents {
     public static final SoundEvent ENTITY_BADGER_AMBIENT = badger("ambient");
     public static final SoundEvent ENTITY_BADGER_BITE = badger("bite");
@@ -20,8 +22,8 @@ public class BadgersSoundEvents {
         return register("entity.%s.%s".formatted(entity, id));
     }
 
-    private static SoundEvent register(String id) {
-        Identifier identifier = new Identifier(Badgers.MOD_ID, id);
+    private static SoundEvent register(String name) {
+        Identifier identifier = new Identifier(MOD_ID, name);
         return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
     }
 }

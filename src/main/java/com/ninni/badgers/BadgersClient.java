@@ -1,9 +1,9 @@
-package com.ninni.badgers.client;
+package com.ninni.badgers;
 
 import com.google.common.collect.ImmutableMap;
 import com.ninni.badgers.block.BadgersBlocks;
-import com.ninni.badgers.client.model.BadgersEntityModelLayers;
-import com.ninni.badgers.client.model.entity.BadgerEntityModel;
+import com.ninni.badgers.client.init.BadgersEntityModelLayers;
+import com.ninni.badgers.client.model.BadgerEntityModel;
 import com.ninni.badgers.client.render.BadgerEntityRenderer;
 import com.ninni.badgers.entity.BadgersEntities;
 import net.fabricmc.api.ClientModInitializer;

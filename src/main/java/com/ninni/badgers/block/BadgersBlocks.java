@@ -15,11 +15,13 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.function.Function;
 
+import static com.ninni.badgers.Badgers.*;
+
 public class BadgersBlocks {
     public static final Block SOUR_BERRY_BUSH = register(
         "sour_berry_bush", new SourBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH)),
         "sour_berries", block -> new BlockItem(block, new FabricItemSettings()
-            .group(Badgers.ITEM_GROUP)
+            .group(ITEM_GROUP)
             .food(
                 new FoodComponent.Builder().statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 6 * 20), 0.5f)
                                            .hunger(3).saturationModifier(0.3F)
@@ -28,12 +30,16 @@ public class BadgersBlocks {
         )
     );
 
+    public static final Block BADGER_DEN = register(
+        "badger_den", new BadgerDenBlock(FabricBlockSettings.copyOf(Blocks.COARSE_DIRT))
+    );
+
     private static Block register(String id, Block block, String itemId, Function<Block, Item> item) {
         if (item != null) Registry.register(Registry.ITEM, new Identifier(Badgers.MOD_ID, itemId), item.apply(block));
         return Registry.register(Registry.BLOCK, new Identifier(Badgers.MOD_ID, id), block);
     }
 
     private static Block register(String id, Block block) {
-        return register(id, block, id, (b) -> new BlockItem(b, new FabricItemSettings().group(Badgers.ITEM_GROUP)));
+        return register(id, block, id, (b) -> new BlockItem(b, new FabricItemSettings().group(ITEM_GROUP)));
     }
 }

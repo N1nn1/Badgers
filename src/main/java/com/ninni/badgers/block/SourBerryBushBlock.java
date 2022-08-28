@@ -26,7 +26,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
@@ -59,7 +58,7 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         int i = state.get(AGE);
         if (i < 3 && random.nextInt(5) == 0 && world.getBaseLightLevel(pos.up(), 0) >= 9) {
             world.setBlockState(pos, state.with(AGE, i + 1), 2);
@@ -68,7 +67,7 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         super.randomDisplayTick(state, world, pos, random);
         if (state.get(AGE) > 1) {
             world.addParticle(ParticleTypes.WITCH, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (random.nextFloat() / 4.0F), 2.0E-5D, (random.nextFloat() / 4.0F));
@@ -114,12 +113,12 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean canGrow(World world, net.minecraft.util.math.random.Random random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, net.minecraft.util.math.random.Random random, BlockPos pos, BlockState state) {
         int i = Math.min(3, state.get(AGE) + 1);
         world.setBlockState(pos, state.with(AGE, i), 2);
     }

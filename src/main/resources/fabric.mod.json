@@ -2,34 +2,35 @@
   "schemaVersion": 1,
   "id": "badgers",
   "version": "${version}",
-
-  "name": "Badgers",
-  "description": "",
+  "name": "Frozen Up",
+  "description": "Frozen Up is a small mod that adds a bunch of new snowy features while keeping in mind the classic minecraft feel.",
   "authors": [
     "Ninni"
   ],
   "contact": {
-    "sources": "https://github.com/N1nn1/Badgers"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/frozen-up",
+    "sources": "https://github.com/N1nn1/badgers",
+    "issues": "https://github.com/N1nn1/badgers/issues"
   },
-
+  "custom": {
+    "modmenu": { "links": {
+      "mod.badgers.contact.discord": "https://discord.moddingplayground.net",
+      "mod.badgers.wiki": "https://github.com/N1nn1/badgers/wiki"
+    } }
+  },
   "license": "MIT",
-  "icon": "assets/badgers/icon.png",
+  "icon": "assets/badgers/textures/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "com.ninni.badgers.Badgers"
-    ],
-    "client": [
-      "com.ninni.badgers.client.BadgersClient"
-    ]
+    "main": [ "com.ninni.badgers.Badgers" ],
+    "client": [ "com.ninni.badgers.BadgersClient" ],
+    "server": []
   },
-  "mixins": [
-    "badgers.mixins.json"
-  ],
-  "accessWidener": "badgers.accesswidener",
+  "mixins": [ "badgers.mixins.json" ],
   "depends": {
-    "fabricloader": ">=0.12.12",
+    "fabricloader": ">=0.14",
     "fabric": "*",
-    "minecraft": ">=1.18"
+    "minecraft": ">=1.19",
+    "java": ">=17"
   }
 }

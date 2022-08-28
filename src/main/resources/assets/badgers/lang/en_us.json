@@ -5,6 +5,8 @@
 
   "block.badgers.sour_berry_bush": "Sour Berries",
 
+  "block.badgers.badger_den": "Badger Den",
+
   "subtitles.entity.badgers.badger.ambient": "Badger sniffs",
   "subtitles.entity.badgers.badger.bite": "Badger bites",
   "subtitles.entity.badgers.badger.hurt": "Badger hurts",
@@ -12,6 +14,8 @@
 
   "item.badgers.music_disc_mellow_meadows": "Music Disc",
   "item.badgers.music_disc_mellow_meadows.desc": "Ninni - Mellow Meadows",
+
+  "item.badgers.badgers": "Badgers",
 
   "item.badgers.sour_berry_muffin": "Sour Berry Muffin",
   "item.badgers.sweet_berry_muffin": "Sweet Berry Muffin",
