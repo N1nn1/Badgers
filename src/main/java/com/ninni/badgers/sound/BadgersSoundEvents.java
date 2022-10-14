@@ -1,6 +1,5 @@
 package com.ninni.badgers.sound;
 
-import com.ninni.badgers.Badgers;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

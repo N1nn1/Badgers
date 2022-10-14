@@ -1,7 +1,12 @@
 package com.ninni.badgers.block;
 
+import com.ninni.badgers.client.particle.BadgersParticles;
 import com.ninni.badgers.entity.BadgersEntities;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Fertilizable;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -70,7 +75,11 @@ public class SourBerryBushBlock extends PlantBlock implements Fertilizable {
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         super.randomDisplayTick(state, world, pos, random);
         if (state.get(AGE) > 1) {
-            world.addParticle(ParticleTypes.WITCH, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (random.nextFloat() / 4.0F), 2.0E-5D, (random.nextFloat() / 4.0F));
+            if (random.nextInt(10) == 0 && world.getBlockState(pos.up()).isAir()) {
+                for (int i = 0; i < random.nextInt(1) + 1; ++i) {
+                    world.addParticle(BadgersParticles.SOUR_BERRY, pos.getX() + random.nextFloat(), pos.getY() + 0.75, pos.getZ() + random.nextFloat(), random.nextFloat() / 2.0f, random.nextFloat() * 5, random.nextFloat() / 2.0f);
+                }
+            }
         }
     }
 

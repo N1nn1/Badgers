@@ -4,7 +4,12 @@ import com.google.common.collect.ImmutableList;
 import com.ninni.badgers.entity.BadgerEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.ModelPartBuilder;
+import net.minecraft.client.model.ModelPartData;
+import net.minecraft.client.model.ModelTransform;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.util.math.MathHelper;
@@ -146,24 +151,18 @@ public class BadgerEntityModel<T extends BadgerEntity> extends AnimalModel<T> {
             this.rightEar.pitch = 0F;
 
             this.head.yaw += MathHelper.cos(2.0F + limbAngle * speed * 0.05F) * degree * 0.2F * limbDistance;
-            this.leftArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
-            this.rightArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
-            this.leftLeg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * -1.2F * limbDistance;
-            this.rightLeg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 1.2F * limbDistance;
-            this.leftArm.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * -1F * limbDistance + 2.5F;
-            this.rightArm.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * 1F * limbDistance + 2.5F;
-            this.leftLeg.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * 1F * limbDistance + 2.5F;
-            this.rightLeg.pivotY = MathHelper.cos(-1.0F + limbAngle * speed * 0.2F) * degree * -1F * limbDistance + 2.5F;
+            this.leftArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * limbDistance;
+            this.rightArm.pitch = MathHelper.cos(limbAngle * speed * 0.2F + (float)Math.PI) * degree * limbDistance;
+            this.leftLeg.pitch = MathHelper.cos(limbAngle * speed * 0.2F + (float)Math.PI) * degree * limbDistance;
+            this.rightLeg.pitch = MathHelper.cos(limbAngle * speed * 0.2F) * degree * limbDistance;
             this.tail.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 0.8F * limbDistance;
-            this.body.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
-            this.body.yaw = MathHelper.cos(1.0F + limbAngle * speed * 0.1F) * degree * 0.2F * limbDistance;
-            this.leftArm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-            this.rightLeg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-            this.leftLeg.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
-            this.rightArm.roll = MathHelper.cos(limbAngle * speed * 0.1F) * degree * -0.2F * limbDistance;
+            this.leftArm.roll = MathHelper.cos(limbAngle * speed * 0.1F + (float)Math.PI) * degree * 0.2F * limbDistance;
+            this.rightLeg.roll = MathHelper.cos(limbAngle * speed * 0.1F + (float)Math.PI) * degree * 0.2F * limbDistance;
+            this.leftLeg.roll = MathHelper.cos(limbAngle * speed * 0.1F + (float)Math.PI) * degree * 0.2F * limbDistance;
+            this.rightArm.roll = MathHelper.cos(limbAngle * speed * 0.1F + (float)Math.PI) * degree * 0.2F * limbDistance;
         }
         if (entity.isAttacking()) {
-            float speed = 1.5f;
+            float speed = 2;
             float degree = 1f;
             this.leftArm.pitch = MathHelper.cos(limbAngle * speed * 0.4F) * degree * 2.8F * limbDistance;
             this.rightArm.pitch = MathHelper.cos(-1.0F + limbAngle * speed * 0.4F) * degree * 2.8F * limbDistance;
@@ -174,7 +173,7 @@ public class BadgerEntityModel<T extends BadgerEntity> extends AnimalModel<T> {
             this.leftEar.pitch = MathHelper.cos(1.5F + limbAngle * speed * 0.4F) * degree * 1.0F * limbDistance;
             this.rightEar.pitch = MathHelper.cos(1.0F + limbAngle * speed * 0.4F) * degree * 1.0F * limbDistance;
             this.head.pitch = MathHelper.cos(1.0F + limbAngle * speed * 0.4F) * degree * 0.6F * limbDistance + 0.2F;
-            this.tail.pitch = MathHelper.cos(limbAngle * speed * 0.4F) * degree * -0.6F * limbDistance - 0.2F;
+            this.tail.pitch = MathHelper.cos(limbAngle * speed * 0.4F + (float)Math.PI) * degree * 0.6F * limbDistance - 0.2F;
             this.tail.yaw = MathHelper.cos(limbAngle * speed * 0.2F) * degree * 0.6F * limbDistance;
         }
     }

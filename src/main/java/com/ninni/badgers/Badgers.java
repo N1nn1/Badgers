@@ -2,6 +2,7 @@ package com.ninni.badgers;
 
 import com.google.common.reflect.Reflection;
 import com.ninni.badgers.block.BadgersBlocks;
+import com.ninni.badgers.client.particle.BadgersParticles;
 import com.ninni.badgers.entity.BadgersEntities;
 import com.ninni.badgers.item.BadgersItems;
 import com.ninni.badgers.sound.BadgersSoundEvents;
@@ -26,6 +27,7 @@ public class Badgers implements ModInitializer {
 		Reflection.initialize(
 			BadgersEntities.class,
 			BadgersItems.class,
+			BadgersParticles.class,
 			BadgersSoundEvents.class,
 			BadgersBlocks.class
 		);

@@ -30,10 +30,6 @@ public class BadgersBlocks {
         )
     );
 
-    public static final Block BADGER_DEN = register(
-        "badger_den", new BadgerDenBlock(FabricBlockSettings.copyOf(Blocks.COARSE_DIRT))
-    );
-
     private static Block register(String id, Block block, String itemId, Function<Block, Item> item) {
         if (item != null) Registry.register(Registry.ITEM, new Identifier(Badgers.MOD_ID, itemId), item.apply(block));
         return Registry.register(Registry.BLOCK, new Identifier(Badgers.MOD_ID, id), block);
